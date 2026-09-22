@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Componentes e Páginas
+   ========================================================================== */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Título */
+.TitleBox {
+    margin-top: 5px;
+    margin-bottom: 2px;
+}
+
+.TitleBox h1 {
+    font-size: 18px;
+    color: var(--text-light);
+}
+
+/* Filtros na Home (Sem barra de rolagem) */
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0 15px 0;
+    width: 100%;
+}
+
+.filter-btn {
+    flex: 1 1 calc(33.333% - 6px);
+    min-width: 80px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 4px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.filter-btn.active {
+    background-color: var(--text-logo);
+    color: #050505;
+    border-color: var(--text-logo);
+}
+
+/* Cards do Feed */
+.news-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-main);
+    padding: 15px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.news-card .card-header span {
+    font-weight: bold;
+    color: var(--text-light);
+    font-size: 15px;
+}
+
+.news-card .content p {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+/* Rodapé dos Cards */
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+}
+
+/* Etiquetas/Badges com texto colorido */
+.badge {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: transparent;
+}
+
+.badge-problema { color: #f87171; }
+.badge-solucao  { color: #fbbf24; }
+.badge-ideia    { color: #38bdf8; }
+.badge-avaliacao{ color: #4ade80; }
+
+/* Botões de Ação (Concordo / Discordo) */
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-float {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #1f1f23;
+    transition: all 0.2s ease;
+}
+
+.btn-disagree {
+    color: #f87171;
+    border-color: #3f2222;
+}
+
+.btn-agree {
+    color: #4ade80;
+    border-color: #223f22;
+}
+
+.btn-disagree.selected {
+    border-color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.15);
+    box-shadow: 0 0 0 1px #ef4444;
+}
+
+.btn-agree.selected {
+    border-color: #22c55e;
+    background-color: rgba(34, 197, 94, 0.15);
+    box-shadow: 0 0 0 1px #22c55e;
+}
+
+/* Escala de Avaliação (1 a 5) */
+.rating-scale {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.btn-rating {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: #1f1f23;
+    color: var(--text-light);
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-rating.selected {
+    border-color: #4ade80;
+    background-color: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+    box-shadow: 0 0 0 1px #4ade80;
+}
+
+/* Formulário de Adicionar */
+.fuel-pannel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.fuel-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-main);
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.fuel-card.active {
+    border-color: var(--text-logo);
+    background-color: rgba(34, 197, 94, 0.1);
+}
+
+.fuel-card h1 {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+.value-card {
+    width: 100%;
+    height: 45px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-main);
+    color: var(--text-light);
+    padding: 0 12px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+/* Toggle Switch */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0 20px 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #1c1c1c;
+    transition: 0.3s;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #888888;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--text-logo);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+    background-color: #000000;
+}
+
+.checkbox-label {
+    color: var(--text-light);
+    font-size: 13px;
+    font-family: sans-serif;
+}
+
+/* Botão de Publicar */
+.Button-Default {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.Button-Default button {
+    width: 100%;
+    height: 52px;
+    background-color: var(--text-logo);
+    color: #050505;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius-main);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.Button-Default button:active {
+    background-color: #15803d;
+}

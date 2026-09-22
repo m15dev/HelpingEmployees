@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Helping Employees</title>
+    <!-- Carrega apenas o main.css consolidado -->
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="tema-1">
+    <div class="app-container"> 
+        
+        <!-- CABEÇALHO -->
+        <header class="header"> 
+            <h1 onclick="window.location.reload()">Helping<span class="logo-animation">Employees™</span></h1> 
+        </header>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+            
+            <!-- PÁGINA 1: INÍCIO / FEED -->
+            <section id="page-home" class="page active">
+                <h1 class="welcome-text"><span id="greeting">Olá</span>!</h1>
+                
+                <div class="TitleBox">
+                    <h2>Publicações Recentes</h2>
+                </div>
+
+                <!-- Filtros de Categoria -->
+                <div class="filter-container">
+                    <button class="filter-btn active" data-filter="todos">TODOS</button>
+                    <button class="filter-btn" data-filter="problema">PROBLEMAS</button>
+                    <button class="filter-btn" data-filter="solucao">SOLUÇÕES</button>
+                    <button class="filter-btn" data-filter="ideia">IDEIAS</button>
+                    <button class="filter-btn" data-filter="avaliacao">AVALIAÇÕES</button>
+                </div>
+
+                <!-- Lista de Publicações -->
+                <div class="fuel-news">
+                    
+                    <!-- Card 1: Problema -->
+                    <article id="News-1" class="news-card" data-category="problema">
+                        <div class="card-header">
+                            <span>Manutenção do Ar Condicionado [Sala B]</span>
+                        </div>
+                        <div class="content">
+                            <p>"O ar condicionado da sala de reuniões B não está a arrefecer adequadamente e apresenta um ruído constante durante as apresentações."</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-problema">PROBLEMA</span>
+                            <div class="card-actions">
+                                <button class="btn-float btn-disagree" onclick="votar('News-1', 'discordo')">Discordo</button>
+                                <button class="btn-float btn-agree" onclick="votar('News-1', 'concordo')">Concordo</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 2: Solução -->
+                    <article id="News-2" class="news-card" data-category="solucao">
+                        <div class="card-header">
+                            <span>Atraso na entrega de EPIs [Almoxarifado]</span>
+                        </div>
+                        <div class="content">
+                            <p>"Os novos pares de luvas de proteção solicitados na semana passada ainda não chegaram ao estoque da equipe da noite."</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-solucao">SOLUÇÃO</span>
+                            <div class="card-actions">
+                                <button class="btn-float btn-disagree" onclick="votar('News-2', 'discordo')">Discordo</button>
+                                <button class="btn-float btn-agree" onclick="votar('News-2', 'concordo')">Concordo</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 3: Ideia -->
+                    <article id="News-3" class="news-card" data-category="ideia">
+                        <div class="card-header">
+                            <span>Opções de Cardápio Vegetariano [Refeitório]</span>
+                        </div>
+                        <div class="content">
+                            <p>"A refeição servida no refeitório central frequentemente não oferece alternativas vegetarianas adequadas nos turnos da tarde."</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-ideia">IDEIA</span>
+                            <div class="card-actions">
+                                <button class="btn-float btn-disagree" onclick="votar('News-3', 'discordo')">Discordo</button>
+                                <button class="btn-float btn-agree" onclick="votar('News-3', 'concordo')">Concordo</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 4: Avaliação -->
+                    <article id="News-4" class="news-card" data-category="avaliacao">
+                        <div class="card-header">
+                            <span>Atendimento do Refeitório</span>
+                        </div>
+                        <div class="content">
+                            <p>"Como avalia a qualidade do atendimento e das refeições do novo refeitório?"</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-avaliacao">AVALIAÇÃO</span>
+                            <div class="card-actions">
+                                <div class="rating-scale">
+                                    <button class="btn-rating rate-1" onclick="avaliar('News-4', 1)">1</button>
+                                    <button class="btn-rating rate-2" onclick="avaliar('News-4', 2)">2</button>
+                                    <button class="btn-rating rate-3" onclick="avaliar('News-4', 3)">3</button>
+                                    <button class="btn-rating rate-4" onclick="avaliar('News-4', 4)">4</button>
+                                    <button class="btn-rating rate-5" onclick="avaliar('News-4', 5)">5</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+ 
+                <p class="license">© 2026 Employee Helper™. Todos os direitos reservados.</p>
+            </section>
+
+            <!-- PÁGINA 2: ADICIONAR OCORRÊNCIA -->
+            <section id="page-valor" class="page">
+                <h1>Nova Publicação</h1>
+                <p class="subtitulo">Relate um problema, solução, ideia ou avaliação para a equipe.</p>
+                
+                <p class="section-label">TIPO DE PUBLICAÇÃO</p>
+                <div class="fuel-pannel-grid">                  
+                    <div class="fuel-card active" data-type="problema"><span>PROBLEMA</span></div>
+                    <div class="fuel-card" data-type="solucao"><span>SOLUÇÃO</span></div>
+                    <div class="fuel-card" data-type="ideia"><span>IDEIA</span></div>
+                    <div class="fuel-card" data-type="avaliacao"><span>AVALIAÇÃO</span></div>
+                </div>
+
+                <p class="section-label">TÍTULO DA OCORRÊNCIA</p>
+                <div class="price-input">
+                    <input id="complaint-title-input" class="value-card" type="text" placeholder="Ex: Cadeira quebrada" required>
+                </div>
+
+                <p class="section-label">DEPARTAMENTO / SETOR</p>
+                <div class="price-input">
+                    <input id="complaint-sector-input" class="value-card" type="text" placeholder="Ex: Bloco A - Sala 3" required>
+                </div>
+
+                <p class="section-label">DESCRIÇÃO DETALHADA</p>
+                <div class="extra-info">
+                    <textarea id="extra-info-input" class="value-card textarea-input" placeholder="Escreva o que aconteceu..." rows="3"></textarea>
+                </div>
+
+                <div class="checkbox-container">
+                    <label class="switch">
+                        <input type="checkbox" id="complaint-public-input" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="checkbox-label">Tornar publicação pública no feed</span>
+                </div>
+
+                <div id="Push-Data">
+                    <div class="Button-Default">
+                        <button id="btn-1">PUBLICAR OCORRÊNCIA</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PÁGINA 3: STATUS DAS OCORRÊNCIA (ACOMPANHAMENTO) -->
+            <section id="page-mapa" class="page">
+                <div class="TitleBox">
+                    <h2>Status das Ocorrências</h2>
+                    <p class="subtitulo">Acompanhamento e evolução dos chamados relatados.</p>
+                </div>
+
+                <!-- Filtros de Status -->
+                <div class="filter-container">
+                    <button class="filter-btn-status active" data-status="todos">TODOS</button>
+                    <button class="filter-btn-status" data-status="recebido">RECEBIDO</button>
+                    <button class="filter-btn-status" data-status="analise">EM ANÁLISE</button>
+                    <button class="filter-btn-status" data-status="solucao">EM SOLUÇÃO</button>
+                    <button class="filter-btn-status" data-status="resolvido">RESOLVIDO</button>
+                </div>
+
+                <!-- Lista de Status -->
+                <div class="fuel-news">
+                    
+                    <!-- Exemplo 1: Furo no Teto (Em Solução) -->
+                    <article class="news-card status-card" data-status="solucao">
+                        <div class="card-header">
+                            <span>Furo no Teto [Galpão B]</span>
+                        </div>
+                        <div class="content">
+                            <p>"Infiltração e furo no teto do galpão identificados na calha principal. Equipe de manutenção contratada para vedação."</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-solucao-st">EM SOLUÇÃO</span>
+                            <div class="card-actions">
+                                <span class="status-date">Atualizado há 2h</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Exemplo 2: Recebido -->
+                    <article class="news-card status-card" data-status="recebido">
+                        <div class="card-header">
+                            <span>Troca de Lâmpadas [Corredor Bloco A]</span>
+                        </div>
+                        <div class="content">
+                            <p>"Relato recebido sobre falha na iluminação do corredor principal do Bloco A."</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-recebido">RECEBIDO</span>
+                            <div class="card-actions">
+                                <span class="status-date">Registrado hoje</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Exemplo 3: Em Análise -->
+                    <article class="news-card status-card" data-status="analise">
+                        <div class="card-header">
+                            <span>Manutenção do Ar Condicionado [Sala B]</span>
+                        </div>
+                        <div class="content">
+                            <p>"Ocorrência em análise técnica pela equipe de infraestrutura para cotação e troca de peças."</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-analise">EM ANÁLISE</span>
+                            <div class="card-actions">
+                                <span class="status-date">Atualizado ontem</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Exemplo 4: Resolvido -->
+                    <article class="news-card status-card" data-status="resolvido">
+                        <div class="card-header">
+                            <span>Vazamento no Banheiro [Térreo]</span>
+                        </div>
+                        <div class="content">
+                            <p>"Reparo do vazamento na torneira e troca dos reparos concluídos pela equipe hidráulica."</p>
+                        </div>
+                        <div class="card-footer">
+                            <span class="badge badge-resolvido">RESOLVIDO</span>
+                            <div class="card-actions">
+                                <span class="status-date">Concluído</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <p class="license">© 2026 HE Solutions — Helping Employees™. Todos os direitos reservados.</p>
+            </section>  
+
+        </main>
+
+        <!-- MENU INFERIOR -->
+        <nav class="nav-bottom">
+            <button class="nav-btn act1 active">
+                <span class="icon icon-home"></span>
+                <span class="label">Início</span>
+            </button> 
+
+            <button class="nav-btn act2">
+                <span class="icon icon-add"></span>
+                <span class="label">Adicionar</span>
+            </button>
+
+            <button class="nav-btn act3">
+                <span class="icon icon-map"></span>
+                <span class="label">Satus</span>
+            </button>
+        </nav>
+
+    </div> 
+
+    <script src="app.js"></script>
+</body>
+</html>

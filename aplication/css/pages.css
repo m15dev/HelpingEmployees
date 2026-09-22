@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Configuração de Página Ativa e Estados de Páginas
+   ========================================================================== */
+.page {
+    display: none !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page.active {
+    display: flex !important;
+    flex-direction: column;
+}
