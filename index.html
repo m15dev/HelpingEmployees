@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HE Solutions — Plataforma Anônima de Chamados</title>
+    <style>
+        :root {
+            --bg-main: #e2e2e7; /* Branco meio escuro / Off-white industrial */
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8f8fa;
+            --border-color: #cbccd1;
+            --green-primary: #16a34a;
+            --green-dark: #15803d;
+            --green-glow: rgba(22, 163, 74, 0.12);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-mono);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAVEGAÇÃO */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+            background-color: rgba(226, 226, 231, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--green-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: color 0.2s;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-primary);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--green-primary);
+            color: var(--green-primary);
+            background: #ffffff;
+        }
+
+        .btn-primary {
+            background: var(--green-primary);
+            border: 1px solid var(--green-primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--green-dark);
+            box-shadow: 0 4px 15px var(--green-glow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 150px 40px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--green-glow);
+            border: 1px solid var(--green-primary);
+            color: var(--green-primary);
+            font-size: 10px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .hero-title {
+            font-size: 40px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 32px;
+            max-width: 520px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        /* HERO PREVIEW CARD */
+        .hero-preview {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .preview-header-title {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            color: var(--green-primary);
+            font-weight: 700;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--green-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--green-primary);
+        }
+
+        .preview-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .preview-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .preview-card-title {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .tag {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+            border: 1px solid currentColor;
+        }
+
+        .tag-anon { color: #2563eb; background: rgba(37, 99, 235, 0.08); }
+        .tag-warning { color: #d97706; background: rgba(217, 119, 6, 0.08); }
+        .tag-success { color: #16a34a; background: rgba(22, 163, 74, 0.08); }
+
+        .preview-card-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* 3 CARDS PRINCIPAIS DA PLATAFORMA */
+        .main-cards-section {
+            padding: 90px 40px;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+            text-align: left;
+        }
+
+        .section-tag {
+            color: var(--green-primary);
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .grid-3-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .main-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 32px 24px;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .main-card:hover {
+            border-color: var(--green-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+        }
+
+        .card-icon-badge {
+            width: 42px;
+            height: 42px;
+            background: var(--green-glow);
+            border: 1px solid var(--green-primary);
+            color: var(--green-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .main-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .main-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-footer-info {
+            font-size: 11px;
+            color: var(--green-primary);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 12px;
+            text-transform: uppercase;
+        }
+
+        /* 5 CARDS DE FUNÇÕES (ESPAÇO PARA FOTO) */
+        .roles-section {
+            padding: 90px 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .grid-5-cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .role-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .role-card:hover {
+            border-color: var(--green-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+        }
+
+        .photo-space {
+            width: 80px;
+            height: 80px;
+            border: 2px dashed var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: var(--bg-main);
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .role-card:hover .photo-space {
+            border-color: var(--green-primary);
+            color: var(--green-primary);
+            background: rgba(22, 163, 74, 0.05);
+        }
+
+        .role-card-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .role-card-label {
+            font-size: 10px;
+            color: var(--green-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .role-card-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* PLANOS DE PREÇO (3 CARDS DE PLANOS) */
+        .pricing-section {
+            padding: 100px 40px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .grid-pricing {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 36px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--green-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--green-primary);
+            background: #ffffff;
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--green-primary);
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .pricing-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .pricing-header p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .pricing-formula {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .formula-base {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .formula-plus {
+            font-size: 12px;
+            color: var(--green-primary);
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .price-total-box {
+            margin-bottom: 24px;
+            padding: 12px;
+            border-radius: 6px;
+            background: rgba(22, 163, 74, 0.08);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            text-align: center;
+        }
+
+        .price-total-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .price-total-val {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--green-dark);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--green-primary);
+            font-weight: bold;
+        }
+
+        /* RECURSOS DA PLATAFORMA */
+        .features {
+            padding: 90px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 28px;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            background: #ffffff;
+            border-color: var(--green-primary);
+        }
+
+        .feature-num {
+            font-size: 11px;
+            color: var(--green-primary);
+            font-weight: bold;
+            margin-bottom: 16px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .feature-card h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* CTA FINAL */
+        .cta-section {
+            border-top: 1px solid var(--border-color);
+            padding: 80px 40px;
+            text-align: center;
+            background: #ffffff;
+        }
+
+        .cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-container h2 {
+            font-size: 26px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .cta-container p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        /* RODAPÉ */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--bg-main);
+        }
+
+        .footer span {
+            color: var(--green-primary);
+            font-weight: bold;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1024px) {
+            .grid-5-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .grid-3-cards,
+            .grid-pricing,
+            .grid-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 110px;
+                gap: 40px;
+            }
+
+            .grid-5-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA PRINCIPAL -->
+    <nav class="navbar">
+        <a href="#" class="logo">HE <span>Solutions</span></a>
+        
+        <ul class="nav-links">
+            <li><a href="#pilares">Pilares</a></li>
+            <li><a href="#funcoes">Funções</a></li>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#seguranca">Segurança</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="#planos" class="btn btn-primary">Contratar Agora</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">HELPING EMPLOYEES — 100% ANÔNIMO</span>
+            <h1 class="hero-title">Gestão de Ocorrências com Anonimato Total.</h1>
+            <p class="hero-subtitle">
+                Abertura de chamados simples, segura e anônima para empresas a partir de 100 usuários.
+            </p>
+            <div class="hero-buttons">
+                <a href="#planos" class="btn btn-primary">Ver Planos de Subscrição</a>
+                <a href="#pilares" class="btn btn-outline">Conhecer Plataforma</a>
+            </div>
+        </div>
+
+        <div class="hero-preview">
+            <div class="preview-header">
+                <span class="preview-header-title">PAINEL DE CHAMADOS ANÔNIMOS</span>
+                <div class="status-pill">
+                    <span class="pulse-dot"></span> MODO PRIVATIVO
+                </div>
+            </div>
+
+            <div class="preview-card">
+                <div class="preview-card-header">
+                    <span class="preview-card-title">Chamado #8492 [Vazamento Setor C]</span>
+                    <span class="tag tag-anon">ANÔNIMO</span>
+                </div>
+                <div class="preview-card-desc">Relato enviado via terminal público sem registo de utilizador.</div>
+            </div>
+
+            <div class="preview-card">
+                <div class="preview-card-header">
+                    <span class="preview-card-title">Chamado #8493 [Sugestão de Processo]</span>
+                    <span class="tag tag-warning">EM ANÁLISE</span>
+                </div>
+                <div class="preview-card-desc">Proposta de melhoria enviada de forma 100% confidencial.</div>
+            </div>
+
+            <div class="preview-card">
+                <div class="preview-card-header">
+                    <span class="preview-card-title">Chamado #8488 [Manutenção Preventiva]</span>
+                    <span class="tag tag-success">CONCLUÍDO</span>
+                </div>
+                <div class="preview-card-desc">Equipe técnica atuou e resolveu o problema reportado.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO DE 3 CARDS PRINCIPAIS -->
+    <section class="main-cards-section" id="pilares">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">[ ESTRUTURA PRINCIPAL ]</span>
+                <h2 class="section-title">Os 3 Pilares da Plataforma HE</h2>
+            </div>
+
+            <div class="grid-3-cards">
+                <!-- CARD 1 -->
+                <div class="main-card">
+                    <div>
+                        <div class="card-icon-badge">01</div>
+                        <h3>Anonimato Absoluto</h3>
+                        <p>Nenhum dado pessoal do colaborador é registado. Sem captura de IP, e-mail ou nome, garantindo imunidade total contra retaliações.</p>
+                    </div>
+                    <div class="card-footer-info">Privacidade Zero-Trace</div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="main-card">
+                    <div>
+                        <div class="card-icon-badge">02</div>
+                        <h3>Mínimo de 100 Usuários</h3>
+                        <p>Estruturado para empresas e indústrias a partir de 100 colaboradores. Pacote escalável pronto para absorver centenas a milhares de conexões.</p>
+                    </div>
+                    <div class="card-footer-info">Escala Inicial 100 Usuários</div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="main-card">
+                    <div>
+                        <div class="card-icon-badge">03</div>
+                        <h3>Painel de Triagem Técnica</h3>
+                        <p>Os gestores de manutenção/RH gerenciam e respondem aos chamados em tempo real, mantendo a conversa anônima e encriptada.</p>
+                    </div>
+                    <div class="card-footer-info">Gestão Eficiente & Rápida</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO DE 5 CARDS PARA FOTOS E FUNÇÕES -->
+    <section class="roles-section" id="funcoes">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">[ PERFIS DE ACESSO ]</span>
+                <h2 class="section-title">Funções do Sistema</h2>
+            </div>
+
+            <div class="grid-5-cards">
+                <!-- CARD 1 -->
+                <div class="role-card">
+                    <div class="photo-space">Foto</div>
+                    <div class="role-card-title">Colaborador</div>
+                    <div class="role-card-label">Função Principal</div>
+                    <div class="role-card-desc">Abertura rápida e anônima de chamados e relatos operacionais em campo.</div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="role-card">
+                    <div class="photo-space">Foto</div>
+                    <div class="role-card-title">Supervisor</div>
+                    <div class="role-card-label">Função Principal</div>
+                    <div class="role-card-desc">Triagem inicial, validação das informações enviadas e definição de urgência.</div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="role-card">
+                    <div class="photo-space">Foto</div>
+                    <div class="role-card-title">Técnico</div>
+                    <div class="role-card-label">Função Principal</div>
+                    <div class="role-card-desc">Execução do serviço de reparo ou melhoria no setor indicado.</div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="role-card">
+                    <div class="photo-space">Foto</div>
+                    <div class="role-card-title">Auditor</div>
+                    <div class="role-card-label">Função Principal</div>
+                    <div class="role-card-desc">Inspeção de qualidade do serviço concluído e aprovação final da ordem.</div>
+                </div>
+
+                <!-- CARD 5 -->
+                <div class="role-card">
+                    <div class="photo-space">Foto</div>
+                    <div class="role-card-title">Gestor</div>
+                    <div class="role-card-label">Função Principal</div>
+                    <div class="role-card-desc">Acompanhamento dos relatórios de KPIs, custos e métricas globais de solução.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECÇÃO DOS PLANOS E PREÇOS (3 CARDS DE PLANOS) -->
+    <section class="pricing-section" id="planos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">[ OPÇÕES DE INVESTIMENTO ]</span>
+                <h2 class="section-title">Planos de Subscrição</h2>
+            </div>
+
+            <div class="grid-pricing">
+                <!-- PLANO 1: MENSAL -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Plano Mensal</h3>
+                        <p>Pagamento flexível mês a mês.</p>
+                    </div>
+
+                    <div class="pricing-formula">
+                        <div class="formula-base">R$ 100,00 <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">fixo</span></div>
+                        <div class="formula-plus">+ R$ 5,00 por usuário / mês</div>
+                    </div>
+
+                    <div class="price-total-box">
+                        <div class="price-total-label">Base Mínima (100 usuários):</div>
+                        <div class="price-total-val">R$ 600,00 / mês</div>
+                    </div>
+
+                    <ul class="pricing-features">
+                        <li>Faturação mensal recorrente</li>
+                        <li>Taxa de pacote fixa R$ 100,00</li>
+                        <li>R$ 5,00 por usuário ativo</li>
+                        <li>Mínimo contratável: 100 usuários</li>
+                        <li>Painel de gestão em tempo real</li>
+                    </ul>
+
+                    <a href="#contacto" class="btn btn-outline">Contratar Mensal</a>
+                </div>
+
+                <!-- PLANO 2: SEMESTRAL -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Plano Semestral</h3>
+                        <p>Faturação semestral com desconto na taxa fixa.</p>
+                    </div>
+
+                    <div class="pricing-formula">
+                        <div class="formula-base">R$ 500,00 <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">fixo</span></div>
+                        <div class="formula-plus">+ R$ 5,00 por usuário / mês</div>
+                    </div>
+
+                    <div class="price-total-box">
+                        <div class="price-total-label">Base Mínima (100 usuários):</div>
+                        <div class="price-total-val">R$ 1.000,00 / semestre</div>
+                    </div>
+
+                    <ul class="pricing-features">
+                        <li>Faturação semestral</li>
+                        <li>Taxa de pacote fixa R$ 500,00</li>
+                        <li>R$ 5,00 por usuário ativo</li>
+                        <li>Mínimo contratável: 100 usuários</li>
+                        <li>Relatórios consolidados de KPIs</li>
+                    </ul>
+
+                    <a href="#contacto" class="btn btn-outline">Contratar Semestral</a>
+                </div>
+
+                <!-- PLANO 3: ANUAL (DESTAQUE) -->
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">MAIOR ECONOMIA</span>
+                    <div class="pricing-header">
+                        <h3>Plano Anual</h3>
+                        <p>Melhor custo-benefício para gestão contínua.</p>
+                    </div>
+
+                    <div class="pricing-formula">
+                        <div class="formula-base">R$ 880,00 <span style="font-size: 12px; font-weight: normal; color: var(--text-muted);">fixo</span></div>
+                        <div class="formula-plus">+ R$ 5,00 por usuário / mês</div>
+                    </div>
+
+                    <div class="price-total-box">
+                        <div class="price-total-label">Base Mínima (100 usuários):</div>
+                        <div class="price-total-val">R$ 1.380,00 / ano</div>
+                    </div>
+
+                    <ul class="pricing-features">
+                        <li>Faturação anual</li>
+                        <li>Taxa de pacote fixa R$ 880,00</li>
+                        <li>R$ 5,00 por usuário ativo</li>
+                        <li>Mínimo contratável: 100 usuários</li>
+                        <li>Gerente de conta dedicado</li>
+                    </ul>
+
+                    <a href="#contacto" class="btn btn-primary">Contratar Anual</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECURSOS DA PLATAFORMA -->
+    <section class="features" id="seguranca">
+        <div class="section-header">
+            <span class="section-tag">[ SEGURANÇA E PRIVACIDADE ]</span>
+            <h2 class="section-title">Engenharia projetada para anonimato e proteção</h2>
+        </div>
+
+        <div class="grid-features">
+            <div class="feature-card">
+                <span class="feature-num">[01]</span>
+                <h3>Sem Registos de IP</h3>
+                <p>Nenhum IP ou identificador de hardware é mantido no servidor. O anonimato do colaborador é protegido a nível de rede.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-num">[02]</span>
+                <h3>Acesso sem Login Pessoal</h3>
+                <p>Submissão direta por QR Code ou link institucional sem necessidade de conta, senha ou identificação.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-num">[03]</span>
+                <h3>Comunicação Criptografada</h3>
+                <p>O fluxo de mensagens entre o emissor anônimo e a equipe de triagem é inteiramente encriptado.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="cta-section" id="contacto">
+        <div class="cta-container">
+            <h2>Pronto para implementar no seu negócio?</h2>
+            <p>Faça a simulação para a sua empresa a partir de 100 usuários.</p>
+            <a href="#" class="btn btn-primary">Solicitar Proposta Comercial</a>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+        <p>© 2026 <span>HE SOLUTIONS — HELPING EMPLOYEES</span>. Todos os direitos reservados.</p>
+        <p>SISTEMA ANÔNIMO B2B</p>
+    </footer>
+
+</body>
+</html>
